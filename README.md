@@ -1,1 +1,953 @@
 # JavaLab
+// Thread example
+import java.io.*;
+import java.util.*;
+
+public class thrd1 implements Runnable {
+	// method to start Thread
+	public void run()
+	{
+		System.out.println("Thread is Running Successfully");
+	}
+
+	public static void main(String[] args)
+	{
+		thrd1 g1 = new thrd1();
+		// initializing Thread Object
+		Thread t1 = new Thread(g1);
+		t1.start();
+	}
+}
+
+
+//thread sleep after 500 milli sec
+class thrd2 extends Thread
+{    
+ public void run()
+{    
+  for(int i=1;i<5;i++)
+{   
+  // the thread will sleep for the 500 milli seconds   
+    try
+  {
+     Thread.sleep(5000);
+     }
+   catch(InterruptedException e)
+     {
+        System.out.println(e);
+         }    
+    System.out.println(i);    
+  }    
+ }    
+ public static void main(String args[]){    
+  thrd2 t1=new thrd2();    
+  thrd2 t2=new thrd2();    
+     
+  t1.start();    
+  t2.start();    
+ }    
+}    
+
+//thread inheritance
+import java.io.*;
+import java.util.*;
+
+public class ThreadExample extends Thread
+ {
+   public void run ()
+   {
+      for (int i = 1; i <= 100; i++) 
+      {
+         System.out.println(“Thread: ” + i);
+      }
+   }
+public static void main(String[] args)
+  {
+
+   ThreadExample t1=new ThreadExample();
+   t1.start(); 
+    }
+
+}
+
+//thread priority
+import java.lang.*;  
+  
+public class ThreadPriorityExample extends Thread   
+{  
+  
+
+public void run()  
+{  
+  
+System.out.println("Inside the run() method");  
+}  
+  
+  
+public static void main(String argvs[])  
+{  
+// Creating threads   
+ThreadPriorityExample th1 = new ThreadPriorityExample();  
+ThreadPriorityExample th2 = new ThreadPriorityExample();  
+ThreadPriorityExample th3 = new ThreadPriorityExample();  
+  
+  
+  
+ 
+System.out.println("Priority of the thread th1 is : " + th1.getPriority());  
+    
+System.out.println("Priority of the thread th2 is : " + th2.getPriority());  
+   
+System.out.println("Priority of the thread th2 is : " + th2.getPriority());  
+  
+// Setting priorities of above threads by   
+th1.setPriority(6);  
+th2.setPriority(3);  
+th3.setPriority(9);  
+  
+ 
+System.out.println("Priority of the thread th1 is : " + th1.getPriority());  
+   
+System.out.println("Priority of the thread th2 is : " + th2.getPriority());  
+    
+System.out.println("Priority of the thread th3 is : " + th3.getPriority());  
+  
+  
+System.out.println("Currently Executing The Thread : " + Thread.currentThread().getName());  
+  
+System.out.println("Priority of the main thread is : " + Thread.currentThread().getPriority());  
+  
+ 
+Thread.currentThread().setPriority(10);  
+  
+System.out.println("Priority of the main thread is : " + Thread.currentThread().getPriority());  
+}  
+}  
+
+//java divide exception
+import java.util.*;
+
+class trying
+{
+
+
+public static void main(String args[])
+  {
+ Scanner in=new Scanner(System.in);
+  int a,b,d,c=0;
+  
+    try
+       {
+ System.out.println("enter the three numbers");
+       a=in.nextInt();
+       b=in.nextInt();
+
+        
+         c=a/b;
+d=in.nextInt();
+        System.out.println("the result is="+c);
+     
+          }
+   catch(Exception e)
+    {
+
+
+     System.out.println("we cannot divide the number with zero"+e);
+    }
+ finally
+   {
+
+   System.out.println("we are in the finally block");
+
+    }
+
+
+    }
+
+}
+
+
+// Class 1
+// Helper class
+// Extending Thread class
+public class PrintTest extends Thread {
+
+	// Non synchronized Code
+
+	// Method 1
+	public void printThread(int n)
+	{
+
+		// This loop will print the currently executed
+		// thread
+		for (int i = 1; i <= 10; i++) {
+			System.out.println("Thread " + n
+							+ " is working...");
+
+			// Try block to check for exceptions
+			try {
+
+				// Pause the execution of current thread
+				// for 0.600 seconds using sleep() method
+				Thread.sleep(600);
+			}
+
+			// Catch block to handle the exceptions
+			catch (Exception ex) {
+
+				// Overriding existing toString() method and
+				// prints exception if occur
+				System.out.println(ex.toString());
+			}
+		}
+
+		// Display message for better readability
+		System.out.println("--------------------------");
+
+		try {
+
+			// Pause the execution of current thread
+			// for 0.1000 millisecond or 1sec using sleep
+			// method
+			Thread.sleep(1000);
+		}
+
+		catch (Exception ex) {
+
+			// Printing the exception
+			System.out.println(ex.toString());
+		}
+	}
+}
+
+// Class 2
+// Helper class extending Thread Class
+public class Thread1 extends Thread {
+
+	// Declaring variable of type Class1
+	PrintTest test;
+
+	// Constructor for class1
+	Thread1(PrintTest p) { test = p; }
+
+	// run() method of this class for
+	// entry point for thread1
+	public void run()
+	{
+
+		// Calling method 1 as in above class
+		test.printThread(1);
+	}
+}
+
+// Class 3
+// Helper class extending Thread Class
+public class Thread2 extends Thread {
+
+	// Declaring variable of type Class1
+	PrintTest test;
+
+	// Constructor for class2
+	Thread2(PrintTest p) { test = p; }
+
+	// run() method of this class for
+	// entry point for thread2
+	public void run() { test.printThread(2); }
+}
+
+// Class 4
+// Main class
+public class SynchroTest {
+
+	// Main driver method
+	public static void main(String[] args)
+	{
+
+		// Creating object of class 1 inside main() method
+		PrintTest p = new PrintTest();
+
+		// Passing the same object of class PrintTest to
+		// both threads
+		Thread1 t1 = new Thread1(p);
+		Thread2 t2 = new Thread2(p);
+
+		// Start executing the threads
+		// using start() method
+		t1.start();
+		t2.start();
+
+		// This will print both the threads simultaneously
+	}
+}
+
+
+//test syncronization
+class Table{  
+void printTable(int n){//method not synchronized  
+   for(int i=1;i<=5;i++){  
+     System.out.println(n*i);  
+     try{  
+      Thread.sleep(400);  
+     }catch(Exception e){System.out.println(e);}  
+   }  
+  
+ }  
+}  
+  
+class MyThread1 extends Thread{  
+Table t;  
+MyThread1(Table t){  
+this.t=t;  
+}  
+public void run(){  
+t.printTable(5);  
+}  
+  
+}  
+class MyThread2 extends Thread{  
+Table t;  
+MyThread2(Table t){  
+this.t=t;  
+}  
+public void run(){  
+t.printTable(100);  
+}  
+}  
+  
+class TestSynchronization1{  
+public static void main(String args[]){  
+Table obj = new Table();//only one object  
+MyThread1 t1=new MyThread1(obj);  
+MyThread2 t2=new MyThread2(obj);  
+t1.start();  
+t2.start();  
+}  
+}  
+
+//textAreaExample
+import javax.swing.*;  
+import java.awt.event.*;  
+public class TextAreaExample implements ActionListener{  
+JLabel l1,l2;  
+JTextArea area;  
+JButton b;  
+TextAreaExample() {  
+    JFrame f= new JFrame();  
+    l1=new JLabel();  
+    l1.setBounds(50,25,100,30);  
+    l2=new JLabel();  
+    l2.setBounds(160,25,100,30);  
+    area=new JTextArea();  
+    area.setBounds(20,75,250,200);  
+    b=new JButton("Count Words");  
+    b.setBounds(100,300,120,30);  
+    b.addActionListener(this);  
+    f.add(l1);f.add(l2);f.add(area);f.add(b);  
+    f.setSize(450,450);  
+    f.setLayout(null);  
+    f.setVisible(true);  
+}  
+public void actionPerformed(ActionEvent e){  
+    String text=area.getText();  
+    String words[]=text.split("\\s");  
+    l1.setText("Words: "+words.length);  
+    l2.setText("Characters: "+text.length());  
+}  
+public static void main(String[] args) {  
+    new TextAreaExample();  
+}  
+}  
+
+
+//TextFieldExample
+import javax.swing.*;  
+import java.awt.event.*;  
+public class TextFieldExample implements ActionListener{  
+    JTextField tf1,tf2,tf3;  
+    JButton b1,b2;  
+    TextFieldExample(){  
+        JFrame f= new JFrame();  
+        tf1=new JTextField(); 
+ 
+        tf1.setBounds(50,50,150,20);  
+        tf2=new JTextField();  
+        tf2.setBounds(50,100,150,20);  
+        tf3=new JTextField();  
+        tf3.setBounds(50,150,150,20);  
+        tf3.setEditable(false);   
+        b1=new JButton("+");  
+        b1.setBounds(50,200,50,50);  
+        b2=new JButton("-");  
+        b2.setBounds(120,200,50,50);  
+        b1.addActionListener(this);  
+        b2.addActionListener(this);  
+        f.add(tf1);f.add(tf2);f.add(tf3);f.add(b1);f.add(b2);  
+        f.setSize(500,500);  
+        f.setLayout(null);  
+        f.setVisible(true);  
+    }         
+    public void actionPerformed(ActionEvent e) {  
+        String s1=tf1.getText();  
+        String s2=tf2.getText();  
+        int a=Integer.parseInt(s1);  
+        int b=Integer.parseInt(s2);  
+        int c=0;  
+        if(e.getSource()==b1){  
+            c=a+b;  
+        }else if(e.getSource()==b2){  
+            c=a-b;  
+        }  
+        String result=String.valueOf(c);  
+        tf3.setText(result);  
+    }  
+public static void main(String[] args) {  
+    new TextFieldExample();  
+} 
+}  
+
+
+//Thread Example
+import java.io.*;
+import java.util.*;
+
+public class thrd extends Thread {
+	// initiated run method for Thread
+	public void run()
+	{
+		System.out.println("Thread Started Running...");
+	}
+	public static void main(String[] args)
+	{
+		thrd g1 = new thrd();
+
+		// Invoking Thread using start() method
+		g1.start();
+	}
+}
+
+
+//Notepad
+import javax.swing.*;  
+import java.awt.event.*;  
+  
+public class Notepad implements ActionListener{  
+JFrame f;  
+JMenuBar mb;  
+JMenu file,edit,help;  
+JMenuItem cut,copy,paste,selectAll;  
+JTextArea ta;  
+      
+Notepad(){  
+f=new JFrame();  
+  
+cut=new JMenuItem("cut");  
+copy=new JMenuItem("copy");  
+paste=new JMenuItem("paste");  
+selectAll=new JMenuItem("selectAll");  
+  
+cut.addActionListener(this);  
+copy.addActionListener(this);  
+paste.addActionListener(this);  
+selectAll.addActionListener(this);  
+  
+mb=new JMenuBar();  
+mb.setBounds(5,5,400,40);  
+  
+file=new JMenu("File");  
+edit=new JMenu("Edit");  
+help=new JMenu("Help");  
+  
+edit.add(cut);edit.add(copy);edit.add(paste);edit.add(selectAll);  
+  
+  
+mb.add(file);mb.add(edit);mb.add(help);  
+  
+ta=new JTextArea();  
+ta.setBounds(5,30,460,460);  
+  
+f.add(mb);f.add(ta);  
+  
+f.setLayout(null);  
+f.setSize(500,500);  
+f.setVisible(true);  
+}  
+  
+public void actionPerformed(ActionEvent e) {  
+if(e.getSource()==cut)  
+ta.cut();  
+if(e.getSource()==paste)  
+ta.paste();  
+if(e.getSource()==copy)  
+ta.copy();  
+if(e.getSource()==selectAll)  
+ta.selectAll();  
+}  
+  
+public static void main(String[] args) {  
+    new Notepad();  
+}  
+}  
+
+
+//Math example
+class output 
+    {
+         public static void main(String args[]) 
+         {
+             double x = 3.14;  
+             int y = (int) Math.ceil(x);
+             System.out.print(y);
+         }
+    }
+
+
+//progress bar
+// Java Program to set specific
+// string to progressbar
+import java.awt.*;
+import javax.swing.*;
+import java.awt.event.*;
+public class progress extends JFrame {
+
+	// create a frame
+	static JFrame f;
+
+	static JProgressBar b;
+
+	public static void main()
+	{
+
+		// create a frame
+		f = new JFrame("ProgressBar demo");
+
+		// create a panel
+		JPanel p = new JPanel();
+
+		// create a progressbar
+		b = new JProgressBar();
+
+		// set initial value
+		b.setValue(0);
+
+		b.setStringPainted(true);
+
+		// add progressbar
+		p.add(b);
+
+		// add panel
+		f.add(p);
+
+		// set the size of the frame
+		f.setSize(500, 500);
+		f.setVisible(true);
+
+		fill();
+	}
+
+	// function to increase progress
+	public static void fill()
+	{
+		int i = 0;
+		try {
+			while (i <= 100) {
+				// set text according to the level to which the bar is filled
+				if (i > 30 && i < 70)
+					b.setString("wait for sometime");
+				else if (i > 70)
+					b.setString("almost finished loading");
+				else
+					b.setString("loading started");
+
+				// fill the menu bar
+				b.setValue(i + 10);
+
+				// delay the thread
+				Thread.sleep(3000);
+				i += 20;
+			}
+		}
+		catch (Exception e) {
+		}
+	}
+}
+
+
+//Simple java code
+class Main4 
+{ 
+public static void main(String[] args) 
+{  
+String name = new String("Java String"); 
+System.out.println(name); 
+} 
+}
+
+
+//adding "" in string
+class Main5 
+{ 
+public static void main(String[] args) 
+{  
+//String example = "This is the "String" class"; 
+//System.out.println(example); 
+String example = "This is the \"String\" class.";
+System.out.println(example);
+} 
+}
+
+
+//concate a string
+class Main6 
+{ 
+public static void main(String[] args) 
+{  
+String example = "Hello! ";
+System.out.println(example);
+example = example.concat(" World");
+System.out.println(example); 
+} 
+}
+
+
+//multiple exception
+public class Multiple1 {  
+  
+    public static void main(String[] args) {  
+          
+           try{    
+                char a[]=new char[5];    
+                
+                System.out.println(a[3]);  
+               }    
+               catch(ArithmeticException e)  
+                  {  
+                   System.out.println("Arithmetic Exception occurs");  
+                  }    
+               catch(ArrayIndexOutOfBoundsException e)  
+                  {  
+                System.out.println("ArrayIndexOutOfBounds Exception occurs");  
+                  }    
+               catch(Exception e)  
+                  {  
+                   System.out.println("Parent Exception occurs");  
+                  }             
+               System.out.println("rest of the code");    
+    }  
+} 
+
+
+//exception different types
+public class Multiple2 {  
+  
+    public static void main(String[] args) {  
+          
+           try{    
+                String s=null;  
+                System.out.println(s.length());  
+               }    
+               catch(ArithmeticException e)  
+                  {  
+                   System.out.println("Arithmetic Exception occurs");  
+                  }    
+               catch(ArrayIndexOutOfBoundsException e)  
+                  {  
+                System.out.println("ArrayIndexOutOfBounds Exception occurs");  
+                  }    
+               catch(Exception e)  
+                  {  
+                   System.out.println("String is empty");  
+                  }             
+               System.out.println("rest of the code");    
+    }  
+}  
+
+
+//Simple java program print by variable
+class Main 
+{ 
+public static void main(String[] args) 
+  {  
+   String first = "Java"; 
+   String second = "Python"; 
+   String third = "JavaScript";  
+   System.out.println(first);
+   System.out.println(second); 
+    System.out.println(third);  
+   } 
+
+}
+
+
+//Length of string
+class Main1 
+{ 
+public static void main(String[] args)
+ {  
+String greet = "Hello! World"; 
+System.out.println("String: " + greet);  
+int length = greet.length();
+ System.out.println("Length: " + length); 
+ 
+}
+
+ }
+
+
+//concatenating a string
+class Main2 
+{ 
+public static void main(String[] args)
+ { 
+String first = "Java ";
+ System.out.println("First String: " + first); 
+String second = "Programming "; 
+System.out.println("Second String: " + second); 
+String add = second.concat(first); 
+System.out.println("Joined String: " + add); 
+} 
+}
+
+
+//check if string is equal or not
+class Main3 
+{ 
+public static void main(String[] args)
+ {  
+   String first = "java programming"; 
+   String second = "java programming"; 
+   String third = "python programming";  
+   boolean result1 = first.equals(second); 
+   System.out.println("Strings first and second are equal: " + result1);  
+   boolean result2 = first.equals(third); 
+   System.out.println("Strings first and third are equal: " + result2); 
+  } 
+}
+
+
+//default constructor
+public class defconst {  
+  
+int id;  
+String name;  
+  
+defconst(){  
+System.out.println("this a default constructor");  
+}  
+  
+defconst(int i, String n){  
+id = i;  
+name = n;  
+}  
+  
+public static void main(String[] args) {  
+//object creation  
+defconst s = new defconst();  
+System.out.println("\nDefault Constructor values: \n");  
+System.out.println("Student Id : "+s.id + "\nStudent Name : "+s.name);  
+  
+System.out.println("\nParameterized Constructor values: \n");  
+defconst student = new defconst(10, "David");  
+System.out.println("Student Id : "+student.id + "\nStudent Name : "+student.name);  
+}  
+}  
+
+
+//simple Swing program
+import javax.swing.*;  
+public class FirstSwingExample {  
+public static void main(String[] args) {  
+JFrame f=new JFrame();//creating instance of JFrame  
+          
+JButton b=new JButton("click");//creating instance of JButton  
+b.setBounds(130,100,100, 40);//x axis, y axis, width, height  
+          
+f.add(b);//adding button in JFrame  
+          
+f.setSize(400,500);//400 width and 500 height  
+f.setLayout(null);//using no layout managers  
+f.setVisible(true);//making the frame visible  
+}  
+}  
+
+
+//Applet html code
+<html>  
+<body>  
+<applet code="GraphicsDemo1.class" width="800" height="800">  
+</applet>  
+</body>  
+</html>  
+
+
+//Applet graphics demo
+import java.applet.Applet;  
+import java.awt.*;  
+public class GraphicsDemo1 extends Applet
+{    
+  public void paint(Graphics g)
+  {  
+    g.setColor(Color.black);  
+    g.drawString("Welcome to studytonight",50, 50); 
+    g.setColor(Color.blue);  
+    g.fillOval(170,200,100,100);  
+    g.drawArc(90,150,30,30,30,270);  
+    g.fillArc(270,150,30,30,0,180);  
+    g.drawLine(21,31,20,300);  
+    g.drawRect(70,100,100,100);  
+    g.fillRect(170,100,100,100);  
+    g.drawOval(70,200,100,100);  
+  }  
+}
+
+
+//simple program
+interface Printable{  
+void print();  
+}  
+interface Showable{  
+void print();  
+}    
+class intfa implements Printable, Showable{  
+public void print()
+{
+System.out.println("Hello");
+}  
+public static void main(String args[])
+{  
+intfa obj = new intfa();  
+obj.print();  
+ }  
+}  
+
+
+//Animation Demo
+import java.awt.*;  
+import java.applet.*;  
+public class AnimationDemo extends Applet 
+{  
+  Image p;  
+  public void init() 
+  {  
+    p = getImage(getDocumentBase(),"giphy.gif");  
+  }  
+  public void paint(Graphics g) 
+  {  
+    for(int i=0;i<500;i++)
+    {  
+      g.drawImage(p, i,50, this);  
+      try
+      {
+        Thread.sleep(100);
+      }
+      catch(Exception e)
+      {}  
+    }  
+  }  
+}  
+
+
+
+//Simple applet program
+import java.applet.*;  
+import java.awt.*;  
+public class ap extends Applet
+{
+    String msg = "";
+    
+    public void init()
+    {
+        msg = "Hello User..!!";
+    }
+
+    public void start()
+    {
+        msg = msg+", Welcome to Amity..!!";
+    }
+  
+    public void paint(Graphics g){  
+        g.drawString(msg,100,100);  
+    }  
+  
+}
+
+
+//simple abstract class
+
+abstract class one {
+	abstract void printInfo();
+}
+
+
+class student extends one {
+	void printInfo()
+	{
+		String name = "BCA";
+		int sem = 5;
+		
+
+		System.out.println(name);
+		System.out.println(sem);
+		
+	}
+}
+
+
+class base {
+	public static void main(String args[])
+	{
+		one s = new student();
+		s.printInfo();
+	}
+}
+
+
+//chechbox 
+import javax.swing.*;  
+import java.awt.event.*;  
+public class CheckBoxExample extends JFrame implements ActionListener{  
+    JLabel l;  
+    JCheckBox cb1,cb2,cb3;  
+    JButton b;  
+    CheckBoxExample(){  
+        l=new JLabel("Food Ordering System");  
+        l.setBounds(50,50,300,20);  
+        cb1=new JCheckBox("Pizza @ 100");  
+        cb1.setBounds(100,100,150,20);  
+        cb2=new JCheckBox("Burger @ 30");  
+        cb2.setBounds(100,150,150,20);  
+        cb3=new JCheckBox("Tea @ 10");  
+        cb3.setBounds(100,200,150,20);  
+        b=new JButton("Order");  
+        b.setBounds(100,250,80,30);  
+        b.addActionListener(this);  
+        add(l);add(cb1);add(cb2);add(cb3);add(b);  
+        setSize(400,400);  
+        setLayout(null);  
+        setVisible(true);  
+        setDefaultCloseOperation(EXIT_ON_CLOSE);  
+    }  
+    public void actionPerformed(ActionEvent e){  
+        float amount=0;  
+        String msg="";  
+        if(cb1.isSelected()){  
+            amount+=100;  
+            msg="Pizza: 100\n";  
+        }  
+        if(cb2.isSelected()){  
+            amount+=30;  
+            msg+="Burger: 30\n";  
+        }  
+        if(cb3.isSelected()){  
+            amount+=10;  
+            msg+="Tea: 10\n";  
+        }  
+        msg+="-----------------\n";  
+        JOptionPane.showMessageDialog(this,msg+"Total: "+amount);  
+    }  
+    public static void main(String[] args) {  
+        new CheckBoxExample();  
+    }  
+}  
+
+
+//
