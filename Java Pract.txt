@@ -1,0 +1,1037 @@
+//prime number or not
+import java.util.Scanner;
+
+public class PrimeChecker {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter a number: ");
+
+        int number = scanner.nextInt();
+
+        if (isPrime(number)) {
+            System.out.println(number + " is a prime number.");
+        } else {
+            System.out.println(number + " is not a prime number.");
+        }
+
+        scanner.close();
+    }
+
+    private static boolean isPrime(int n) {
+        if (n <= 1) return false;
+        for (int i = 2; i <= Math.sqrt(n); i++) {
+            if (n % i == 0) return false;
+        }
+        return true;
+    }
+}
+
+
+//prime between 2 number
+import java.util.Scanner;
+
+public class PrimeRange {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter the lower limit: ");
+        int lowerLimit = scanner.nextInt();
+        System.out.print("Enter the upper limit: ");
+        int upperLimit = scanner.nextInt();
+
+        System.out.println("Prime numbers between " + lowerLimit + " and " + upperLimit + ":");
+        printPrimesInRange(lowerLimit, upperLimit);
+
+        scanner.close();
+    }
+
+    private static void printPrimesInRange(int lower, int upper) {
+        for (int i = lower; i <= upper; i++) {
+            if (isPrime(i)) {
+                System.out.print(i + " ");
+            }
+        }
+        System.out.println(); // Move to the next line after printing prime numbers
+    }
+
+    private static boolean isPrime(int n) {
+        if (n <= 1) return false;
+        for (int i = 2; i <= Math.sqrt(n); i++) {
+            if (n % i == 0) return false;
+        }
+        return true;
+    }
+}
+
+
+//fibonacci series
+import java.util.Scanner;
+
+public class FibonacciGenerator {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter the number of Fibonacci numbers to generate: ");
+        int n = scanner.nextInt();
+
+        System.out.println("First " + n + " Fibonacci numbers:");
+        for (int i = 0; i < n; i++) {
+            System.out.print(fibonacci(i) + " ");
+        }
+
+        scanner.close();
+    }
+
+    private static int fibonacci(int n) {
+        if (n <= 1) {
+            return n;
+        } else {
+            return fibonacci(n - 1) + fibonacci(n - 2);
+        }
+    }
+}
+
+
+//sort array
+import java.util.Arrays;
+
+public class ArraySorter {
+    public static void main(String[] args) {
+        if (args.length == 0) {
+            System.out.println("Please provide integer values as command line arguments.");
+            return;
+        }
+
+        int[] array = new int[args.length];
+
+        for (int i = 0; i < args.length; i++) {
+            try {
+                array[i] = Integer.parseInt(args[i]);
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Please provide valid integer values.");
+                return;
+            }
+        }
+
+        Arrays.sort(array);
+
+        System.out.println("Sorted array:");
+        for (int num : array) {
+            System.out.print(num + " ");
+        }
+    }
+}
+
+
+//create initialize and sum matrices
+public class MatrixSum {
+    public static void main(String[] args) {
+        // Create and initialize matrices
+        int[][] matrix1 = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+        int[][] matrix2 = {{9, 8, 7}, {6, 5, 4}, {3, 2, 1}};
+
+        // Find the sum of matrices
+        int[][] sumMatrix = new int[3][3];
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                sumMatrix[i][j] = matrix1[i][j] + matrix2[i][j];
+            }
+        }
+
+        // Display matrices
+        displayMatrix("Matrix 1:", matrix1);
+        displayMatrix("Matrix 2:", matrix2);
+        displayMatrix("Sum Matrix:", sumMatrix);
+    }
+
+    private static void displayMatrix(String label, int[][] matrix) {
+        System.out.println(label);
+        for (int[] row : matrix) {
+            for (int num : row) {
+                System.out.print(num + " ");
+            }
+            System.out.println();
+        }
+        System.out.println();
+    }
+}
+
+
+//Harmonic series
+public class HarmonicSeriesSum {
+    public static void main(String[] args) {
+        int n = 5; // Replace with your desired value of n
+
+        double sum = 0;
+        for (int i = 1; i <= n; i++) {
+            sum += 1.0 / i;
+        }
+
+        System.out.println("Sum of the harmonic series for n=" + n + ": " + sum);
+    }
+}
+
+
+//patient detail hospital
+import java.util.Date;
+import java.text.SimpleDateFormat;
+
+public class Inpatient {
+    private static int hospitalNumberCounter = 1000;
+
+    private String name;
+    private int age;
+    private int hospitalNumber;
+    private Date dateOfAdmission;
+    private double roomRent;
+
+    // Default constructor
+    public Inpatient() {
+        this.hospitalNumber = ++hospitalNumberCounter;
+        this.dateOfAdmission = new Date();
+    }
+
+    // Copy constructor
+    public Inpatient(Inpatient other) {
+        this.name = other.name;
+        this.age = other.age;
+        this.hospitalNumber = other.hospitalNumber;
+        this.dateOfAdmission = new Date(other.dateOfAdmission.getTime());
+        this.roomRent = other.roomRent;
+    }
+
+    // Parameterized constructor
+    public Inpatient(String name, int age, double roomRent) {
+        this();
+        this.name = name;
+        this.age = age;
+        this.roomRent = roomRent;
+    }
+
+    // Method to input a record
+    public void inputRecord(String name, int age, double roomRent) {
+        this.name = name;
+        this.age = age;
+        this.roomRent = roomRent;
+    }
+
+    // Method to display a record
+    public void displayRecord() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        System.out.println("Name: " + name);
+        System.out.println("Age: " + age);
+        System.out.println("Hospital Number: " + hospitalNumber);
+        System.out.println("Date of Admission: " + dateFormat.format(dateOfAdmission));
+        System.out.println("Room Rent: " + roomRent);
+        System.out.println();
+    }
+
+    // Method to check if the date of admission is today
+    public boolean isAdmittedToday() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String todayDate = dateFormat.format(new Date());
+        String admissionDate = dateFormat.format(dateOfAdmission);
+        return todayDate.equals(admissionDate);
+    }
+
+    public static void main(String[] args) {
+        // Part a)
+        Inpatient patient1 = new Inpatient();
+        Inpatient patient2 = new Inpatient(patient1);
+        Inpatient patient3 = new Inpatient("John Doe", 30, 150.0);
+
+        // Part b)
+        Inpatient patient4 = new Inpatient();
+        System.out.println("Hospital Number for patient4: " + patient4.hospitalNumber);
+
+        // Part c)
+        Inpatient patient5 = new Inpatient();
+        System.out.println("Hospital Number for patient5: " + patient5.hospitalNumber);
+
+        // Part d)
+        Inpatient patient6 = new Inpatient();
+        patient6.displayRecord();
+        System.out.println("Is admitted today? " + patient6.isAdmittedToday());
+
+        // Part e)
+        Inpatient[] records = new Inpatient[3];
+        records[0] = new Inpatient("Alice", 25, 120.0);
+        records[1] = new Inpatient("Bob", 35, 180.0);
+        records[2] = new Inpatient("Charlie", 40, 200.0);
+
+        for (Inpatient record : records) {
+            record.displayRecord();
+        }
+
+        // Part f)
+        Inpatient patient7 = new Inpatient("Alice", 25, 120.0);
+        Inpatient patient8 = new Inpatient("Alice", 25, 120.0);
+
+        if (patient7.equals(patient8)) {
+            System.out.println("Patients have the same information except for hospital number.");
+        } else {
+            System.out.println("Patients do not have the same information.");
+        }
+
+        int admittedTodayCount = 0;
+        for (Inpatient record : records) {
+            if (record.isAdmittedToday()) {
+                admittedTodayCount++;
+            }
+        }
+
+        System.out.println("Number of records admitted today: " + admittedTodayCount);
+    }
+}
+
+
+//string length , a's and lowercase to uppercase
+public class StringOperations {
+    public static void main(String[] args) {
+        String inputString = "abcdeabc"; // Replace with your desired string
+
+        // Part a)
+        int length = inputString.length();
+        System.out.println("Length of the string: " + length);
+
+        // Part b)
+        long countOfAs = inputString.chars().filter(ch -> ch == 'a').count();
+        System.out.println("Number of 'a's in the string: " + countOfAs);
+
+        // Part c)
+        String upperCaseString = inputString.toUpperCase();
+        String lowerCaseString = inputString.toLowerCase();
+        System.out.println("Uppercase: " + upperCaseString);
+        System.out.println("Lowercase: " + lowerCaseString);
+
+        // Part d)
+        int indexOfABC = inputString.indexOf("abc");
+        if (indexOfABC != -1) {
+            System.out.println("Substring 'abc' found at position: " + indexOfABC);
+        } else {
+            System.out.println("Substring 'abc' not found.");
+        }
+    }
+}
+
+
+//capitalize every starting letter of word
+public class CapitalizeWords {
+    public static void main(String[] args) {
+        String[] sentences = {
+            "this is a sample sentence",
+            "another example for demonstration",
+            "short java code for capitalization"
+        };
+
+        // Display original strings
+        System.out.println("Original strings:");
+        displayArray(sentences);
+
+        // Capitalize starting letters of words
+        for (int i = 0; i < sentences.length; i++) {
+            sentences[i] = capitalizeWords(sentences[i]);
+        }
+
+        // Display capitalized strings
+        System.out.println("\nCapitalized strings:");
+        displayArray(sentences);
+    }
+
+    private static String capitalizeWords(String sentence) {
+        String[] words = sentence.split(" ");
+        StringBuilder result = new StringBuilder();
+
+        for (String word : words) {
+            result.append(Character.toUpperCase(word.charAt(0)))
+                  .append(word.substring(1))
+                  .append(" ");
+        }
+
+        return result.toString().trim();
+    }
+
+    private static void displayArray(String[] array) {
+        for (String element : array) {
+            System.out.println(element);
+        }
+        System.out.println();
+    }
+}
+
+
+//hospital bill design
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+class Patient {
+    public String name;
+    public int age;
+    public int hospitalNumber;
+
+    public void inputDetails(String name, int age, int hospitalNumber) {
+        this.name = name;
+        this.age = age;
+        this.hospitalNumber = hospitalNumber;
+    }
+
+    public void displayDetails() {
+        System.out.println("Name: " + name);
+        System.out.println("Age: " + age);
+        System.out.println("Hospital Number: " + hospitalNumber);
+    }
+}
+
+class Inpatient extends Patient {
+    public String departmentName;
+    public Date admissionDate;
+    public String roomType;
+
+    public void inputInpatientDetails(String departmentName, Date admissionDate, String roomType) {
+        this.departmentName = departmentName;
+        this.admissionDate = admissionDate;
+        this.roomType = roomType;
+    }
+
+    public void displayInpatientDetails() {
+        displayDetails();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        System.out.println("Department Name: " + departmentName);
+        System.out.println("Admission Date: " + dateFormat.format(admissionDate));
+        System.out.println("Room Type: " + roomType);
+    }
+}
+
+class Billing extends Inpatient {
+    public Date dischargeDate;
+
+    public void inputBillingDetails(Date dischargeDate) {
+        this.dischargeDate = dischargeDate;
+    }
+
+    public void displayTotalAmount() {
+    long admissionDays = (dischargeDate.getTime() - admissionDate.getTime()) / (24 * 60 * 60 * 1000) + 1;
+
+    double roomRentPerDay = 0;
+    double consultancyChargePerDay = 0;
+
+    switch (roomType.toLowerCase()) {
+        case "special":
+            roomRentPerDay = 200;
+            consultancyChargePerDay = 1000;
+            break;
+        case "semispecial":
+            roomRentPerDay = 100;
+            consultancyChargePerDay = 500;
+            break;
+        case "general":
+            roomRentPerDay = 50;
+            consultancyChargePerDay = 100;
+            break;
+    }
+
+    double roomRent = roomRentPerDay * admissionDays;
+    double consultancyCharges = consultancyChargePerDay * admissionDays;
+    double totalAmount = roomRent + consultancyCharges;
+
+    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    System.out.println("Discharge Date: " + dateFormat.format(dischargeDate));
+    System.out.println("Room Rent: Rs. " + roomRent);
+    System.out.println("Consultancy Charges: Rs. " + consultancyCharges);
+    System.out.println("Total Amount: Rs. " + totalAmount);
+}
+
+
+
+
+
+}
+
+public class HospitalManagement {
+    public static void main(String[] args) {
+        Patient patient = new Patient();
+        patient.inputDetails("John Doe", 30, 1001);
+        patient.displayDetails();
+
+        System.out.println();
+
+        Inpatient inpatient = new Inpatient();
+        inpatient.inputDetails("Alice Smith", 25, 1002);
+        inpatient.inputInpatientDetails("Cardiology", new Date(), "Special");
+        inpatient.displayInpatientDetails();
+
+        System.out.println();
+
+        Billing billing = new Billing();
+        billing.inputDetails("Bob Johnson", 35, 1003);
+        billing.inputInpatientDetails("Orthopedics", new Date(), "SemiSpecial");
+        billing.inputBillingDetails(new Date());
+        billing.displayTotalAmount();
+    }
+}
+
+
+//creating a package
+// File: myPackages/p1/ArrayOperations.java
+package myPackages.p1;
+
+import java.util.Arrays;
+
+public class ArrayOperations {
+    public static int min(int[] arr) {
+        return Arrays.stream(arr).min().orElse(Integer.MAX_VALUE);
+    }
+
+    public static int max(int[] arr) {
+        return Arrays.stream(arr).max().orElse(Integer.MIN_VALUE);
+    }
+
+    public static void sort(int[] arr) {
+        Arrays.sort(arr);
+    }
+
+    public static void reverse(int[] arr) {
+        int start = 0;
+        int end = arr.length - 1;
+
+        while (start < end) {
+            int temp = arr[start];
+            arr[start] = arr[end];
+            arr[end] = temp;
+            start++;
+            end--;
+        }
+    }
+
+    public static void scale(int[] arr, int factor) {
+        for (int i = 0; i < arr.length; i++) {
+            arr[i] *= factor;
+        }
+    }
+}
+
+// // File: Main.java
+// import myPackages.p1.ArrayOperations;
+
+// public class Main {
+//     public static void main(String[] args) {
+//         int[] numbers = {5, 2, 9, 1, 7};
+
+//         // Testing methods
+//         System.out.println("Original Array: " + Arrays.toString(numbers));
+//         System.out.println("Min: " + ArrayOperations.min(numbers));
+//         System.out.println("Max: " + ArrayOperations.max(numbers));
+
+//         ArrayOperations.sort(numbers);
+//         System.out.println("Sorted Array: " + Arrays.toString(numbers));
+
+//         ArrayOperations.reverse(numbers);
+//         System.out.println("Reversed Array: " + Arrays.toString(numbers));
+
+//         ArrayOperations.scale(numbers, 3);
+//         System.out.println("Scaled Array: " + Arrays.toString(numbers));
+//     }
+// }
+
+
+//area figure
+abstract class Figure {
+    abstract double area();
+}
+
+class Rectangle extends Figure {
+    private int length;
+    private int width;
+
+    Rectangle(int length, int width) {
+        this.length = length;
+        this.width = width;
+    }
+
+    @Override
+    double area() {
+        return length * width;
+    }
+}
+
+class Triangle extends Figure {
+    private int base;
+    private int height;
+
+    Triangle(int base, int height) {
+        this.base = base;
+        this.height = height;
+    }
+
+    @Override
+    double area() {
+        return 0.5 * base * height;
+    }
+}
+
+class Square extends Figure {
+    private int side;
+
+    Square(int side) {
+        this.side = side;
+    }
+
+    @Override
+    double area() {
+        return side * side;
+    }
+}
+
+public class Main1 {
+    public static void main(String[] args) {
+        Figure rectangle = new Rectangle(5, 8);
+        Figure triangle = new Triangle(4, 6);
+        Figure square = new Square(3);
+
+        System.out.println("Area of Rectangle: " + rectangle.area());
+        System.out.println("Area of Triangle: " + triangle.area());
+        System.out.println("Area of Square: " + square.area());
+    }
+}
+
+
+//list doubleended list
+// File: List.java
+class List {
+    protected Node head;
+
+    // Inner class representing a node in the list
+    protected class Node {
+        int data;
+        Node next;
+
+        Node(int data) {
+            this.data = data;
+            this.next = null;
+        }
+    }
+
+    // Method to add an element to the end of the list
+    void append(int data) {
+        if (head == null) {
+            head = new Node(data);
+            return;
+        }
+
+        Node current = head;
+        while (current.next != null) {
+            current = current.next;
+        }
+
+        current.next = new Node(data);
+    }
+
+    // Method to display the elements of the list
+    void display() {
+        Node current = head;
+        while (current != null) {
+            System.out.print(current.data + " ");
+            current = current.next;
+        }
+        System.out.println();
+    }
+}
+
+// File: DoubleEndedList.java
+class DoubleEndedList extends List {
+    // Method to add an element to the front of the list
+    void addToFront(int data) {
+        Node newNode = new Node(data);
+        newNode.next = head;
+        head = newNode;
+    }
+
+    // Method to remove the first element from the list
+    void removeFromFront() {
+        if (head != null) {
+            head = head.next;
+        }
+    }
+
+    // Method to add an element to the end of the list
+    void addToEnd(int data) {
+        super.append(data);
+    }
+
+    // Method to remove the last element from the list
+    void removeFromEnd() {
+        if (head == null || head.next == null) {
+            head = null;
+            return;
+        }
+
+        Node current = head;
+        while (current.next.next != null) {
+            current = current.next;
+        }
+
+        current.next = null;
+    }
+}
+
+// File: Main.java
+public class Main3 {
+    public static void main(String[] args) {
+        // Usage of DoubleEndedList
+        DoubleEndedList doubleEndedList = new DoubleEndedList();
+
+        // Adding elements to the end
+        doubleEndedList.append(1);
+        doubleEndedList.append(2);
+        doubleEndedList.append(3);
+
+        // Adding elements to the front
+        doubleEndedList.addToFront(0);
+        doubleEndedList.addToFront(-1);
+
+        // Displaying the list
+        System.out.println("DoubleEndedList:");
+        doubleEndedList.display();
+
+        // Removing from the front
+        doubleEndedList.removeFromFront();
+
+        // Removing from the end
+        doubleEndedList.removeFromEnd();
+
+        // Displaying the final list
+        System.out.println("DoubleEndedList after operations:");
+        doubleEndedList.display();
+    }
+}
+
+
+
+//employee detail
+import java.util.Scanner;
+
+public class Employee {
+    private String name;
+    private int age;
+    private double grossSalary;
+    private float takeHomeSalary;
+    private char grade;
+
+    // Method to read details of an employee from the keyboard
+    public void input() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Enter Name: ");
+        name = scanner.nextLine();
+
+        System.out.print("Enter Age: ");
+        age = scanner.nextInt();
+
+        System.out.print("Enter Gross Salary: ");
+        grossSalary = scanner.nextDouble();
+
+        System.out.print("Enter Take-Home Salary: ");
+        takeHomeSalary = scanner.nextFloat();
+
+        System.out.print("Enter Grade: ");
+        grade = scanner.next().charAt(0);
+    }
+
+    // Method to display details of an employee
+    public void display() {
+        System.out.println("Employee Details:");
+        System.out.println("Name: " + name);
+        System.out.println("Age: " + age);
+        System.out.println("Gross Salary: " + grossSalary);
+        System.out.println("Take-Home Salary: " + takeHomeSalary);
+        System.out.println("Grade: " + grade);
+    }
+
+    public static void main(String[] args) {
+        Employee employee = new Employee();
+        int choice;
+
+        do {
+            System.out.println("\nMenu:");
+            System.out.println("1. Input");
+            System.out.println("2. Display");
+            System.out.println("3. Exit");
+
+            choice = getUserChoice();
+
+            switch (choice) {
+                case 1:
+                    employee.input();
+                    break;
+                case 2:
+                    employee.display();
+                    break;
+                case 3:
+                    System.out.println("Exiting the program. Goodbye!");
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please choose again.");
+            }
+        } while (choice != 3);
+    }
+
+    // Method to get user choice from the menu
+    private static int getUserChoice() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Enter your choice: ");
+        return scanner.nextInt();
+    }
+}
+
+
+//push pop exception
+class Stack {
+    public int maxSize;
+    public int top;
+    public int[] stackArray;
+
+    public Stack(int size) {
+        maxSize = size;
+        stackArray = new int[maxSize];
+        top = -1;
+    }
+
+    public void push(int value) throws PushException {
+        if (top == maxSize - 1) {
+            throw new PushException("Stack is full");
+        }
+        stackArray[++top] = value;
+    }
+
+    public int pop() throws PopException {
+        if (top == -1) {
+            throw new PopException("Stack is empty");
+        }
+        return stackArray[top--];
+    }
+
+    public boolean isFull() {
+        return top == maxSize - 1;
+    }
+
+    public boolean isEmpty() {
+        return top == -1;
+    }
+}
+
+class PushException extends Exception {
+    public PushException(String message) {
+        super(message);
+    }
+}
+
+class PopException extends Exception {
+    public PopException(String message) {
+        super(message);
+    }
+}
+
+public class Main4 {
+    public static void main(String[] args) throws PopException {
+        Stack myStack = new Stack(3);
+
+        try {
+            myStack.push(1);
+            myStack.push(2);
+            myStack.push(3);
+
+            System.out.println("Elements in the stack:");
+
+            // Print elements before popping
+            for (int i = myStack.top; i >= 0; i--) {
+                System.out.println("Stack[" + i + "]: " + myStack.stackArray[i]);
+            }
+
+            // Uncomment the line below to test the PushException
+            // myStack.push(4);
+
+            // Uncomment the lines below to test the PopException
+            while (true) {
+                try {
+                    int poppedValue = myStack.pop();
+                    System.out.println("Popped: " + poppedValue);
+                } catch (PopException e) {
+                    System.out.println("Exception: " + e.getMessage());
+                    break;  // Exit the loop when PopException occurs
+                }
+            }
+
+        } catch (PushException e) {
+            System.out.println("Exception: " + e.getMessage());
+        } 
+        // finally {
+        //     System.out.println("Handling remaining elements after exception:");
+
+            // Print elements after exception handling
+            while (!myStack.isEmpty()) {
+                int poppedValue = myStack.pop();
+                System.out.println("Popped: " + poppedValue);
+            }
+        }
+    }
+
+
+
+//matrix row sum
+class RowSumThread extends Thread {
+    private int[] row;
+    private int partialSum;
+
+    public RowSumThread(int[] row) {
+        this.row = row;
+        this.partialSum = 0;
+    }
+
+    @Override
+    public void run() {
+        // Compute the sum of the row
+        for (int value : row) {
+            partialSum += value;
+        }
+    }
+
+    public int getPartialSum() {
+        return partialSum;
+    }
+}
+
+public class MatrixRowSum {
+    public static void main(String[] args) {
+        int[][] matrix = {
+            {1, 2, 3},
+            {4, 5, 6},
+            {7, 8, 9}
+        };
+
+        int numRows = matrix.length;
+        RowSumThread[] threads = new RowSumThread[numRows];
+
+        // Create and start threads for each row
+        for (int i = 0; i < numRows; i++) {
+            threads[i] = new RowSumThread(matrix[i]);
+            threads[i].start();
+        }
+
+        // Wait for all threads to complete
+        try {
+            for (RowSumThread thread : threads) {
+                thread.join();
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        // Compute total sum from partial sums
+        int totalSum = 0;
+        for (RowSumThread thread : threads) {
+            totalSum += thread.getPartialSum();
+        }
+
+        System.out.println("Matrix Row Sums:");
+        for (RowSumThread thread : threads) {
+            System.out.println("Row Partial Sum: " + thread.getPartialSum());
+        }
+
+        System.out.println("Total Matrix Sum: " + totalSum);
+    }
+}
+
+
+//count character, line , words and number
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class FileStats{
+    public static void main(String[] args) {
+        String fileName = "example.txt"; // Replace with your file path
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+            String line;
+            int charCount = 0;
+            int numberCount = 0;
+            int wordCount = 0;
+            int lineCount = 0;
+
+            while ((line = reader.readLine()) != null) {
+                charCount += line.length();
+                lineCount++;
+
+                // Count numbers using regular expression
+                Pattern pattern = Pattern.compile("\\b\\d+\\b");
+                Matcher matcher = pattern.matcher(line);
+                while (matcher.find()) {
+                    numberCount++;
+                }
+
+                // Count words by splitting the line
+                String[] words = line.split("\\s+");
+                wordCount += words.length;
+            }
+
+            System.out.println("Character count: " + charCount);
+            System.out.println("Number count: " + numberCount);
+            System.out.println("Word count: " + wordCount);
+            System.out.println("Line count: " + lineCount);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+
+//String enter and reverse uppercase
+import java.util.Arrays;
+import java.util.Scanner;
+
+public class StringOper {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // Input strings
+        System.out.print("Enter the first string: ");
+        String firstString = scanner.nextLine();
+
+        System.out.print("Enter the second string: ");
+        String secondString = scanner.nextLine();
+
+        // Sort words within each string
+        String[] wordsFirst = firstString.split(" ");
+        String[] wordsSecond = secondString.split(" ");
+
+        Arrays.sort(wordsFirst);
+        Arrays.sort(wordsSecond);
+
+        firstString = String.join(" ", wordsFirst);
+        secondString = String.join(" ", wordsSecond);
+
+        System.out.println("Sorted Strings: " + firstString + " / " + secondString);
+
+        // Checking whether one string is a substring of another
+        if (firstString.contains(secondString)) {
+            System.out.println(secondString + " is a substring of " + firstString);
+        } else if (secondString.contains(firstString)) {
+            System.out.println(firstString + " is a substring of " + secondString);
+        } else {
+            System.out.println("No substring relationship between the two strings");
+        }
+
+        // Converting strings to uppercase
+        String upperFirstString = firstString.toUpperCase();
+        String upperSecondString = secondString.toUpperCase();
+        System.out.println("Uppercase of first string: " + upperFirstString);
+        System.out.println("Uppercase of second string: " + upperSecondString);
+
+        scanner.close();
+    }
+}
+
+
+
