@@ -1,0 +1,169 @@
+Program 1
+import java.applet.Applet;  
+import java.awt.Graphics;  
+public class First extends Applet{  
+  
+public void paint(Graphics g){  
+g.drawString("welcome",150,150);  
+}  
+  
+}  
+<html>  
+<body>  
+<applet code="First.class" width="300" height="300">  
+</applet>  
+</body>  
+</html>  
+
+Program 2
+import java.applet.Applet;  
+import java.awt.Graphics;  
+public class First2 extends Applet{  
+  
+public void paint(Graphics g){  
+g.drawString("welcome to applet",150,150);  
+}  
+  
+}  
+
+
+Program 3
+import java.applet.Applet;  
+import java.awt.*;  
+  
+public class GraphicsDemo extends Applet{  
+  
+public void paint(Graphics g){  
+g.setColor(Color.red);  
+g.drawString("Welcome",50, 50);  
+g.drawLine(20,30,20,300);  
+g.drawRect(70,100,30,30);  
+g.fillRect(170,100,30,30);  
+g.drawOval(70,200,30,30);  
+  
+g.setColor(Color.pink);  
+g.fillOval(170,200,30,30);  
+g.drawArc(90,150,30,30,30,270);  
+g.fillArc(270,150,30,30,0,180);  
+  
+}  
+}  
+<html>  
+<body>  
+<applet code="GraphicsDemo.class" width="300" height="300">  
+</applet>  
+</body>  
+</html>
+
+
+Program 4
+import java.awt.*;  
+import java.applet.*;  
+  
+  
+public class DisplayImage extends Applet {  
+  
+  Image picture;  
+  
+  public void init() {  
+    picture = getImage(getDocumentBase(),"sonoo.jpg");  
+  }  
+    
+  public void paint(Graphics g) {  
+    g.drawImage(picture, 30,30, this);  
+  }  
+      
+  }  
+<html>  
+<body>  
+<applet code="DisplayImage.class" width="300" height="300">  
+</applet>  
+</body>  
+</html>  
+
+
+
+
+
+Program 5
+import java.applet.*;
+import java.awt.*;
+public class MyApplet extends Applet
+{
+ int height, width;
+ public void init()
+ {
+  height = getSize().height;
+  width = getSize().width;
+  setName("MyApplet");
+ }
+ public void paint(Graphics g)
+ {
+  g.drawRoundRect(10, 30, 120, 120, 2, 3);
+ }
+}
+
+Program 6
+
+import java.applet.Applet;  
+import java.awt.*;  
+public class GraphicsDemo1 extends Applet
+{    
+  public void paint(Graphics g)
+  {  
+    g.setColor(Color.black);  
+    g.drawString("Welcome to studytonight",50, 50); 
+    g.setColor(Color.blue);  
+    g.fillOval(170,200,30,30);  
+    g.drawArc(90,150,30,30,30,270);  
+    g.fillArc(270,150,30,30,0,180);  
+    g.drawLine(21,31,20,300);  
+    g.drawRect(70,100,30,30);  
+    g.fillRect(170,100,30,30);  
+    g.drawOval(70,200,30,30);  
+  }  
+}
+
+Program 6
+
+import java.awt.*;
+import java.applet.*;
+public class Aimage extends Applet
+{
+  Image img1;
+  public void init()
+  {
+    img1=getImage(getDocumentBase(),"icon.png");
+  }
+  public void paint(Graphics g)
+  {
+    g.drawImage(img1,100,100,this);
+  }   
+}
+
+
+
+Program 7  
+import java.awt.*;  
+import java.applet.*;  
+public class AnimationDemo extends Applet 
+{  
+  Image p;  
+  public void init() 
+  {  
+    p = getImage(getDocumentBase(),"ball.gif");  
+  }  
+  public void paint(Graphics g) 
+  {  
+    for(inti=0;i<500;i++)
+    {  
+      g.drawImage(p, i,50, this);  
+      try
+      {
+        Thread.sleep(100);
+      }
+      catch(Exception e)
+      {}  
+    }  
+  }  
+}  
