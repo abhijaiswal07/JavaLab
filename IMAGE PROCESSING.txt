@@ -1,0 +1,301 @@
+% 1. reading an image
+j=imread('cameraman.tif');
+figure,imshow(j);
+% 2. reading a coloured image
+i=imread("peppers.png");
+figure,imshow(i);
+% 3. displaying the rgb image
+red=i(:,:,1);
+figure,imshow(red);
+green=i(:,:,2);
+figure,imshow(green);
+blue=i(:,:,3);
+figure,imshow(blue);
+% 4 . displaying rgb with original
+subplot(2,2,1),imshow(i);
+subplot(2,2,2),imshow(red);
+subplot(2,2,3),imshow(green);
+subplot(2,2,4),imshow(blue);
+% 5. printing a patten
+r=zeros(4,4);
+r(1,1,3)=19;
+r(2,2,2)=15;
+r(3,3,1)=20;
+r(4,4,2)=15;
+figure,imshow(r);
+
+% 6. Sampling of image till 4x4
+
+a=imread('cameraman.tif');
+subplot(2,4,1),imshow(a,[]);
+[m,n]=size(a);
+b=a(2:2:m,2:2:n);
+subplot(2,4,2),imshow(b,[]);
+[m,n]=size(b);
+c=b(2:2:m,2:2:n);
+subplot(2,4,3),imshow(c,[]);
+[m,n]=size(c);
+d=c(2:2:m,2:2:n);
+subplot(2,4,4),imshow(d,[]);
+[m,n]=size(d);
+e=d(2:2:m,2:2:n);
+subplot(2,4,5),imshow(e,[]);
+[m,n]=size(e);
+f=e(2:2:m,2:2:n);
+subplot(2,4,6),imshow(f,[]);
+[m,n]=size(f);
+g=f(2:2:m,2:2:n);
+subplot(2,4,7),imshow(g,[]);
+[m,n]=size(g);
+h=g(2:2:m,2:2:n);
+subplot(2,4,8),imshow(h,[]);
+
+% 7. Sampling of Image
+
+I=imread('cameraman.tif');
+[m,n]=size(I);
+A=zeros(m,n);
+B=zeros(m,n);
+C=zeros(m,n);
+D=zeros(m,n);
+E=zeros(m,n);
+F=zeros(m,n);
+G=zeros(m,n);
+H=zeros(m,n);
+for i=1 : m
+    for j=1 : n
+        A(i,j)=2*(I(i,j)/2);
+        B(i,j)=4*(I(i,j)/4);
+        C(i,j)=8*(I(i,j)/8);
+        D(i,j)=16*(I(i,j)/16);
+        E(i,j)=32*(I(i,j)/32);
+        F(i,j)=64*(I(i,j)/64);
+        G(i,j)=128*(I(i,j)/128);
+        H(i,j)=256*(I(i,j)/256);
+    end
+end
+subplot(2,4,1),imshow(A,[]);title('256 gray level');
+subplot(2,4,2),imshow(B,[]),title('128 gray level');
+subplot(2,4,3),imshow(C,[]),title('64 gray level');
+subplot(2,4,4),imshow(D,[]),title('32 gray level');
+subplot(2,4,5),imshow(E,[]),title('16 gray level');
+subplot(2,4,6),imshow(F,[]),title('8 gray level');
+subplot(2,4,7),imshow(G,[]),title('4 gray level');
+subplot(2,4,8),imshow(H,[]),title('2 gray level');
+      
+% 8. log based transformation
+
+originalImage = imread('cameraman.tif');
+doubleImage = double(originalImage);
+logImage = log(1 + doubleImage);
+figure;
+subplot(1, 2, 1);imshow(originalImage);title('Original Image');
+subplot(1, 2, 2);imshow(logImage,[]);title('Log-Transformed Image');
+
+
+% 9. Negative of an image
+
+img=imread('cameraman.tif');
+[m,n]=size(img);
+negative=zeros(m,n);
+for i= 1 : m
+    for j= 1: n
+        img(i,j)=255-img(i,j);
+    end
+end
+imshow(img);
+% 10. Intensity slicing 
+
+I=imread('pout.tif');
+[m,n]=size(I);
+
+J=zeros(m,n);
+K=zeros(m,n);
+for i=1:m
+    for j=1:n
+        if(I(i,j)>=150 && I(i,j)<200)
+            J(i,j)=255;
+        else 
+            J(i,j)=I(i,j);
+        end
+    end
+end
+
+for i=1:m
+    for j=1:n
+        if(I(i,j)>=150 && I(i,j)<200)
+            K(i,j)=255;
+        else 
+            K(i,j)=25;
+        end
+    end
+end
+figure, subplot(2,2,1),imshow(I);
+title('original')
+subplot(2,2,2),imshow(J,[]);
+title('Intensity Slicing, no change')
+subplot(2,1,2),imshow(K,[]);
+title('Intensity Slicing with subtling')
+
+% 11. HISTOGRAM EQUILIZATION 
+img=imread('pout.tif');
+figure
+subplot(1,3,1);
+imshow(img);
+subplot(1,3,2:3);
+imhist(img);
+
+% Histogram 
+img=histeq(img,256);
+figure
+subplot(1,3,1);
+imshow(img);
+subplot(1,3,2:3);
+imhist(img);
+
+%-----------------------
+%% HISTOGRAM EQUILIZATION %%
+
+img=imread('pout.tif');
+[r,c]=size(img);
+
+frq=zeros(1,256);
+
+for i=1:r
+    for j=1:c
+        k=img(i,j)+1;
+        frq(1,k)=frq(1,k)+1;
+
+    end
+end
+
+%cumulative freq
+cfrq=frq(:,:);
+for n=2:256
+ cfrq(1,n)=frq(1,n)+cfrq(1,n-1);
+end
+
+%normalization
+for n=1:256
+ cfrq(1,n)=cfrq(1,n)/(r*c);
+end
+
+%new pixel levels
+for n=1:256
+ cfrq(1,n)=cfrq(1,n)*255;
+end
+
+%Creating new image
+newImg=uint8(zeros(r,c));
+for i=1:r
+    for j=1:c
+        newImg(i,j)=cfrq(1,img(i,j)+1);
+    end
+end
+
+imwrite(newImg,'histEqImg.tif','tif');
+figure,subplot(2,2,1), imshow(img), title('original');
+subplot(2,2,3), imhist(img);
+subplot(2,2,2),imshow(newImg,[]), title('histogram equilized');
+subplot(2,2,4), imhist(newImg);
+
+% 12 NOISE
+
+% For adding various kind of noise 
+I = rgb2gray(imread("tape.png")); 
+subplot(2, 2, 1), 
+imshow(I); 
+title("Original image"); 
+
+% adding salt and pepper noise 
+s = imnoise(I, "salt & pepper", 0.20); 
+subplot(2, 2, 2), 
+imshow(s); 
+title("Salt and Pepper noise"); 
+
+% adding Gaussian noise 
+g = imnoise(I, "gaussian", 0.20); 
+subplot(2, 2, 3), 
+imshow(g); 
+title("Gaussian noise"); 
+
+% adding Speckle noise 
+sp = imnoise(I, "speckle", 0.20); 
+subplot(2, 2, 4), 
+imshow(sp); 
+title("Speckle noise"); 
+
+% 13. Gama
+
+img=imread('cameraman.tif');
+[m,n]=size(img);
+c=2;
+g=1;
+for i= 1 : m
+    for j= 1: n
+        img(i,j)= c * (double(img(i,j))^g);
+    end
+end
+imshow(img);
+
+% 14. Average filter
+
+originalImage = imread('tire.tif');
+filterSize = [6, 6];
+averageFilter = fspecial('average', filterSize);
+filteredImage = imfilter(originalImage, averageFilter);
+subplot(1, 2, 1);
+imshow(originalImage);
+title('Original Image');
+
+subplot(1, 2, 2);
+imshow(filteredImage);
+title('Filtered Image');
+imwrite(filteredImage, 'filtered_image.jpg');
+median filter 
+im noise function
+
+% 15. Median Filtering
+
+originalImage = imread('cameraman.tif');
+filterSize = [3, 3];
+medianFiltered = medfilt2(originalImage, filterSize);
+subplot(1, 2, 1);
+imshow(originalImage);
+title('Original Image');
+subplot(1, 2, 2);
+imshow(medianFiltered);
+title('Median-Filtered Image');
+imwrite(medianFiltered, 'median_filtered_image.jpg');
+
+% 16.  Noise in an image
+originalImage = imread('tire.tif');
+noiseType = 'gaussian';
+noiseLevel = 0.2;
+noisyImage = imnoise(originalImage, noiseType, noiseLevel);
+subplot(1, 2, 1);
+imshow(originalImage);
+title('Original Image');
+subplot(1, 2, 2);
+imshow(noisyImage);
+title('Noisy Image');
+imwrite(noisyImage, 'noisy_image.jpg');
+
+% 17.Sharpening of an image
+
+a=imread ('peppers.png');
+a = imsharpen(a,'Radius',200,'Amount',2);
+figure,imshow(a);
+
+
+
+
+
+
+
+
+
+
+
+
+
